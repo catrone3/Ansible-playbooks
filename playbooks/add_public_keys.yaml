@@ -1,0 +1,41 @@
+---
+- hosts: all
+
+  become: yes
+  tasks:
+
+  # Create Ansible User
+  # --
+  #
+  - name: create ansible user
+    user:
+      name: "{{ lookup('env','USER') }}"
+      group: admin
+
+  # Delete authorized keys for ubuntu user
+  # --
+  #
+  - name: delete authorizedkeys file
+    file:
+      path: /home/ubuntu/.ssh/authorized_keys
+      state: absent
+
+  # Installs public key
+  # --
+  #
+  - name: install public keys
+    ansible.posix.authorized_key:
+      user: "{{ lookup('env','USER') }}"
+      state: present
+      key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+  # (Optional)
+  # Set all sudoers to no password
+  # --
+  - name: change sudoers file
+    lineinfile:
+      path: /etc/sudoers
+      state: present
+      regexp: '^%sudo'
+      line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+      validate: /usr/sbin/visudo -cf %s
