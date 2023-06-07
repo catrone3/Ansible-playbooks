@@ -1,0 +1,10 @@
+/* --------------- */
+/* Mermaid Styles */
+
+.language-mermaid svg{
+  width: 3000px;
+}
+
+.language-mermaid {
+  overflow: hidden;
+}

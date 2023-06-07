@@ -1,0 +1,28 @@
+---
+- hosts: all
+
+  become: yes
+  tasks:
+  
+
+  #Install PHP8
+  - name: install php8
+    apt:
+      name:
+        - php8.1
+      update_cache: yes
+
+  - name: install php-fpm
+    apt:
+      name:
+        - php8.1-fpm
+        - php8.1-mbstring
+        - php8.1-yaml
+      update_cache: yes
+
+  - name: install dependancies
+    apt:
+      name:
+        - git
+        - nginx
+      update_cache: yes

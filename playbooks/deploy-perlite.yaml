@@ -1,0 +1,65 @@
+- hosts: all
+
+  become: yes
+  become_user: "root"
+  tasks:
+
+  #install perlite
+  - name: Clone Perlite
+    ansible.builtin.git:
+      repo: 'https://github.com/secure-77/Perlite.git'
+      dest: /home/ubuntu/perlite
+      update: yes
+
+  - name: copy files to www
+    copy:
+      remote_src: True
+      src: /home/ubuntu/perlite/perlite
+      dest: /var/www/perlite
+      mode: '0644'
+  
+  - name: copy custom favicon
+    copy:
+      src: ../files/perlite-backup/favicon.ico
+      dest: /var/www/perlite/favicon.ico
+      mode: '0644'
+
+  - name: copy custom logo
+    copy:
+      src: ../files/perlite-backup/logo.svg
+      dest: /var/www/perlite/logo.svg
+      mode: '0644'
+
+  - name: copy custom icon
+    copy:
+      src: ../files/perlite-backup/perlite.svg
+      dest: /var/www/perlite/perlite.svg
+      mode: '0644'
+
+  - name: copy custom style changes to tmp
+    copy:
+      src: ../files/perlite-backup/style-edit.css
+      dest: /tmp/style-edit.css
+      mode: '0644'
+
+  - name: update style to have custom styles
+    shell: cat /tmp/style-edit.css >> /var/www/perlite/.styles/style.css
+
+  - name: setup nginx
+    copy:
+      src: ../file/perlite-backup/nginx.conf
+      dest: /etc/nginx/nginx.conf
+
+  - name: copy custom style changes to tmp
+    copy:
+      src: ../files/perlite-backup/perlite.conf
+      dest: /tmp/perlite.conf
+      mode: '0644'
+    
+  - name: update php fpm www.conf
+    shell: cat /tmp/perlite.conf >> /etc/php/8.1/fpm/pool.d/www.conf
+
+  - name: Clone shadowrun notes
+    ansible.builtin.git:
+      repo: 'https://github.com/catrone3/shadowrunNotes.git'
+      dest: /var/www/perlite/Shadowrun
