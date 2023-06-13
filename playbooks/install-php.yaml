@@ -6,10 +6,10 @@
   
   #Disable Apache
   - name: disable apache
-    systemd:
-      name: apache2
-      state: stopped
-      enabled: false
+    apt:
+      name:
+        apache2
+      state: absent
 
   #Install PHP8
   - name: install php8

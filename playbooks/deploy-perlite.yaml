@@ -15,31 +15,31 @@
       remote_src: True
       src: /home/ubuntu/perlite/perlite/
       dest: /var/www/perlite/
-      mode: '0644'
+      mode: '0655'
   
   - name: copy custom favicon
     copy:
       src: ../files/perlite-backup/favicon.ico
       dest: /var/www/perlite/favicon.ico
-      mode: '0644'
+      mode: '0655'
 
   - name: copy custom logo
     copy:
       src: ../files/perlite-backup/logo.svg
       dest: /var/www/perlite/logo.svg
-      mode: '0644'
+      mode: '0655'
 
   - name: copy custom icon
     copy:
       src: ../files/perlite-backup/perlite.svg
       dest: /var/www/perlite/perlite.svg
-      mode: '0644'
+      mode: '0655'
 
   - name: copy custom style changes to tmp
     copy:
       src: ../files/perlite-backup/style-edit.css
       dest: /tmp/style-edit.css
-      mode: '0644'
+      mode: '0655'
 
   - name: update style to have custom styles
     shell: sudo cat /tmp/style-edit.css >> /var/www/perlite/.styles/style.css
@@ -53,7 +53,7 @@
     copy:
       src: ../files/perlite-backup/perlite.conf
       dest: /tmp/perlite.conf
-      mode: '0644'
+      mode: '0655'
     
   - name: update php fpm www.conf
     shell: sudo cat /tmp/perlite.conf >> /etc/php/8.1/fpm/pool.d/www.conf
