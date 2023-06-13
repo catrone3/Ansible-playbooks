@@ -10,4 +10,5 @@
     apt:
       name:
         - rsync
+        - glances
       update_cache: yes
