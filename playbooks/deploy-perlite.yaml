@@ -19,25 +19,25 @@
   
   - name: copy custom favicon
     copy:
-      src: files/perlite-backup/favicon.ico
+      src: ../files/perlite-backup/favicon.ico
       dest: /var/www/perlite/favicon.ico
       mode: '0644'
 
   - name: copy custom logo
     copy:
-      src: files/perlite-backup/logo.svg
+      src: ../files/perlite-backup/logo.svg
       dest: /var/www/perlite/logo.svg
       mode: '0644'
 
   - name: copy custom icon
     copy:
-      src: files/perlite-backup/perlite.svg
+      src: ../files/perlite-backup/perlite.svg
       dest: /var/www/perlite/perlite.svg
       mode: '0644'
 
   - name: copy custom style changes to tmp
     copy:
-      src: files/perlite-backup/style-edit.css
+      src: ../files/perlite-backup/style-edit.css
       dest: /tmp/style-edit.css
       mode: '0644'
 
@@ -46,12 +46,12 @@
 
   - name: setup nginx
     copy:
-      src: files/perlite-backup/nginx.conf
+      src: ../files/perlite-backup/nginx.conf
       dest: /etc/nginx/nginx.conf
 
   - name: copy custom style changes to tmp
     copy:
-      src: files/perlite-backup/perlite.conf
+      src: ../files/perlite-backup/perlite.conf
       dest: /tmp/perlite.conf
       mode: '0644'
     
