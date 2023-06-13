@@ -11,7 +11,7 @@
       update: yes
 
   - name: copy files to www
-    shell: sudo cp /home/ubuntu/perlite/perlite /var/www/perlite && chmod 0644 /var/www/perlite
+    shell: sudo cp -r /home/ubuntu/perlite/perlite /var/www/perlite && chmod 0644 /var/www/perlite
     # copy:
     #   remote_src: True
     #   src: /home/ubuntu/perlite/perlite
