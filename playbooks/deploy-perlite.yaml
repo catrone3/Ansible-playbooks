@@ -11,11 +11,12 @@
       update: yes
 
   - name: copy files to www
-    copy:
-      remote_src: True
-      src: /home/ubuntu/perlite/perlite
-      dest: /var/www/perlite
-      mode: '0644'
+    shell: sudo cp /home/ubuntu/perlite/perlite /var/www/perlite && chmod 0644 /var/www/perlite
+    # copy:
+    #   remote_src: True
+    #   src: /home/ubuntu/perlite/perlite
+    #   dest: /var/www/perlite
+    #   mode: '0644'
   
   - name: copy custom favicon
     copy:
