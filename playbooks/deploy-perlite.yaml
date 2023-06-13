@@ -13,8 +13,8 @@
   - name: copy files to www
     copy:
       remote_src: True
-      src: /home/ubuntu/perlite/perlite/*
-      dest: /var/www/perlite
+      src: /home/ubuntu/perlite/perlite/
+      dest: /var/www/perlite/
       mode: '0644'
   
   - name: copy custom favicon
