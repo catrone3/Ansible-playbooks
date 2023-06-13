@@ -17,14 +17,6 @@
       name: "{{ lookup('env','USER') }}"
       groups: sudo, adm, ansible
 
-  # Delete authorized keys for ubuntu user
-  # --
-  #
-  - name: delete authorizedkeys file
-    file:
-      path: /home/ubuntu/.ssh/authorized_keys
-      state: absent
-
   # Installs public key
   # --
   #
@@ -44,3 +36,11 @@
       regexp: '^%sudo'
       line: '%sudo ALL=(ALL) NOPASSWD: ALL'
       validate: /usr/sbin/visudo -cf %s
+
+  # Delete authorized keys for ubuntu user
+  # --
+  #
+  - name: delete authorizedkeys file
+    file:
+      path: /home/ubuntu/.ssh/authorized_keys
+      state: absent
