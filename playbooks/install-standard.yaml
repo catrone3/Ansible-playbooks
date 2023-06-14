@@ -9,6 +9,7 @@
   - name: install rsync
     apt:
       name:
+        - wget
         - rsync
         - glances
       update_cache: yes
