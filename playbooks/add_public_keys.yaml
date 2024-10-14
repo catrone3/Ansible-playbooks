@@ -46,15 +46,15 @@
   # Disable password login for ansible user
   # --
   #
-  - name: adjust ssh config
-    lineinfile:
-      path: "/home/{{ lookup('env','USER') }}/.ssh/sshd_config"
-      state: present
-      create: yes
-      regexp: "{{ item.regexp }}"
-      line: "{{ item.line }}"
-      validate: /usr/sbin/visudo -cf %s
-    loop:
-      - {regexp: 'PasswordAuthentication no', line: 'PasswordAuthentication no' }
-      - {regexp: "Match User {{ lookup('env','ADMIN') }}", line: "Match User {{ lookup('env','ADMIN') }}" }
-      - {regexp: 'PasswordAuthentication yes', line: 'PasswordAuthentication yes' }
+  # - name: adjust ssh config
+  #   lineinfile:
+  #     path: "/home/{{ lookup('env','USER') }}/.ssh/sshd_config"
+  #     state: present
+  #     create: yes
+  #     regexp: "{{ item.regexp }}"
+  #     line: "{{ item.line }}"
+  #     validate: /usr/sbin/visudo -cf %s
+  #   loop:
+  #     - {regexp: 'PasswordAuthentication no', line: 'PasswordAuthentication no' }
+  #     - {regexp: "Match User {{ lookup('env','ADMIN') }}", line: "Match User {{ lookup('env','ADMIN') }}" }
+  #     - {regexp: 'PasswordAuthentication yes', line: 'PasswordAuthentication yes' }
