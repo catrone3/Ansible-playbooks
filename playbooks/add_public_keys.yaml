@@ -48,7 +48,7 @@
   #
   - name: adjust ssh config
     lineinfile:
-      path: /home/ssh/sshd_config
+      path: "/home/{{ lookup('env','USER') }}/.ssh/sshd_config"
       state: present
       regexp: "{{ item.regexp }}"
       line: "{{ item.line }}"
