@@ -1,0 +1,22 @@
+---
+- hosts: all
+  become: true
+
+  # Install Wazuh Agent
+  tasks:
+    - name: download and wazuh
+      ansible.builtin.get_url:
+        url: https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.7.0-1_arm64.deb
+        dest: /tmp/wazuh-agent_4.7.0-1_arm64.deb
+    
+    - name: install wazuh
+      ansible.builtin.shell:
+        cmd: sudo WAZUH_MANAGER={{ lookup('env','WAZUH_MANAGER') }} WAZUH_AGENT_NAME={{ AGENT_NAME }} dpkg -i /tmp/wazuh-agent_4.7.0-1_arm64.deb
+
+    - name: start wazuh agent
+      ansible.builtin.systemd:
+        daemon-reload: true
+        state: started
+        enabled: true
+        name: wazuh-agent
+      

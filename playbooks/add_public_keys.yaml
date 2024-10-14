@@ -26,6 +26,12 @@
       state: present
       key: "{{ lookup('file', '../files/id_rsa.pub') }}"
 
+  - name: install public keys
+    ansible.posix.authorized_key:
+      user: "{{ lookup('env','ADMIN') }}"
+      state: present
+      key: "{{ lookup('file', '../files/id_rsa.pub') }}"
+
   # (Optional)
   # Set all sudoers to no password
   # --
@@ -33,14 +39,21 @@
     lineinfile:
       path: /etc/sudoers
       state: present
-      regexp: '^%sudo'
-      line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+      insertafter: '^%sudo'
+      line: '%ansible ALL=(ALL) NOPASSWD: ALL'
       validate: /usr/sbin/visudo -cf %s
 
-  # Delete authorized keys for ubuntu user
+  # Disable password login for ansible user
   # --
   #
-  - name: delete authorizedkeys file
-    file:
-      path: /home/ubuntu/.ssh/authorized_keys
-      state: absent
+  - name: adjust ssh config
+    lineinfile:
+      path: /home/ssh/sshd_config
+      state: present
+      regexp: "{{ item.regexp }}"
+      line: "{{ item.line }}"
+      validate: /usr/sbin/visudo -cf %s
+    loop:
+      - {regexp: 'PasswordAuthentication no', line: 'PasswordAuthentication no' }
+      - {regexp: "Match User {{ lookup('env','ADMIN') }}", line: "Match User {{ lookup('env','ADMIN') }}" }
+      - {regexp: 'PasswordAuthentication yes', line: 'PasswordAuthentication yes' }

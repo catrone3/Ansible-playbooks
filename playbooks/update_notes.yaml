@@ -2,9 +2,8 @@
 
   become: yes
   tasks:
-
-  - name: Clone shadowrun notes
-    ansible.builtin.git:
-      repo: 'https://github.com/catrone3/shadowrunNotes.git'
-      dest: /var/www/perlite/Shadowrun
-      update: yes
+    - name: Clone shadowrun notes
+      ansible.builtin.git:
+        repo: "https://github.com/catrone3/shadowrunNotes.git"
+        dest: /var/www/perlite/Shadowrun
+        update: yes
