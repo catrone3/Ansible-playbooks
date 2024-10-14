@@ -50,6 +50,7 @@
     lineinfile:
       path: "/home/{{ lookup('env','USER') }}/.ssh/sshd_config"
       state: present
+      create: yes
       regexp: "{{ item.regexp }}"
       line: "{{ item.line }}"
       validate: /usr/sbin/visudo -cf %s
