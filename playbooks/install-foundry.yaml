@@ -26,7 +26,7 @@
       mode: '0755'
     when: INSTALL
 
-  - name: start foundry
+  - name: stop foundry
     shell: pm2 stop node --name foundry
     when: not INSTALL
 
