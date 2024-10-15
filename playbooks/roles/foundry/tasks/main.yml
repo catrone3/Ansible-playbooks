@@ -4,25 +4,25 @@
     name:
       - nodejs
   update_cache: yes
-  when: {{ INSTALL }} = true
+  when: {{ INSTALL }} == "true"
 
 - name: install pm2
   npm:
     name: pm2
     global: true
     state: present
-  when: {{ INSTALL }} = true
+  when: {{ INSTALL }} == "true"
   
 - name: make directory
   file:
     path: /opt/foundrydata
     state: directory
     mode: '0755'
-  when: {{ INSTALL }} = true
+  when: {{ INSTALL }} == "true"
 
 - name: start foundry
   shell: pm2 stop node --name foundry
-  when: {{ INSTALL }} = false
+  when: {{ INSTALL }} == "false"
 
 - name: download foundry
   shell: curl {{ foundry_url }} --output /tmp/foundryvtt.zip
