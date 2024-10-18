@@ -20,7 +20,7 @@
     - name: config wazuh agent
       replace:
         path: /var/ossec/etc/ossec.conf
-        regex: MANAGER_IP
+        regexp: MANAGER_IP
         replace: 192.168.1.67
     
     - name: start wazuh agent
