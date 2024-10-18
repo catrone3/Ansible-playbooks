@@ -20,3 +20,7 @@
         enabled: true
         name: wazuh-agent
       
+    - name: disable Wazuh repo
+      ansible.builtin.shell:
+        cmd: sudo echo "wazuh-agent hold" | dpkg --set-selections
+      
