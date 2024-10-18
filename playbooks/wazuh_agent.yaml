@@ -11,7 +11,7 @@
     
     - name: install wazuh
       ansible.builtin.shell:
-        cmd: sudo WAZUH_MANAGER={{ lookup('env','WAZUH_MANAGER') }} WAZUH_AGENT_NAME={{ AGENT_NAME }} dpkg -i /tmp/wazuh-agent_4.7.0-1_arm64.deb
+        cmd: sudo WAZUH_MANAGER={{ lookup('env','WAZUH_MANAGER') }} WAZUH_AGENT_NAME={{ ansible_hostname }}-{{ ansible_ssh_host }} dpkg -i /tmp/wazuh-agent_4.7.0-1_arm64.deb
 
     - name: start wazuh agent
       ansible.builtin.systemd:
