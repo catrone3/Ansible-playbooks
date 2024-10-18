@@ -4,14 +4,25 @@
 
   # Install Wazuh Agent
   tasks:
+    - name: add wazuh gpg key
+      ansible.builtin.shell:
+        cmd: curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | gpg --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/wazuh.gpg --import && chmod 644 /usr/share/keyrings/wazuh.gpg
+
+    - name: add wazuh repo
+      ansible.builtin.apt_repository:
+        repo: deb [signed-by=/usr/share/keyrings/wazuh.gpg] https://packages.wazuh.com/4.x/apt/ stable main
+        state: present
+
     - name: download and wazuh
       ansible.builtin.get_url:
         url: https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.7.0-1_arm64.deb
         dest: /tmp/wazuh-agent_4.7.0-1_arm64.deb
     
     - name: install wazuh
-      ansible.builtin.shell:
-        cmd: sudo WAZUH_MANAGER={{ lookup('env','WAZUH_MANAGER') }} WAZUH_AGENT_NAME={{ ansible_hostname }}-{{ ansible_ssh_host }} dpkg -i /tmp/wazuh-agent_4.7.0-1_arm64.deb
+      apt:
+        name:wazuh-agent
+      environment:
+        WAZUH_MANAGER: {{ WAZUH_MANAGER }}
 
     - name: start wazuh agent
       ansible.builtin.systemd:
