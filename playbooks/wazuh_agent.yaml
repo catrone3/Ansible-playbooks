@@ -14,16 +14,23 @@
         state: present
   
     - name: install wazuh
-      shell: export WAZUH_MANAGER="{{ lookup('env','WAZUH_MANAGER') }}" && apt-get install wazuh-agent
+      apt:
+        name: wazuh-agent
+
+    - name: config wazuh agent
+      replace:
+        path: /var/ossec/etc/ossec.conf
+        regex: MANAGER_IP
+        replace: 192.168.1.67
     
-    # - name: start wazuh agent
-    #   ansible.builtin.systemd:
-    #     daemon-reload: true
-    #     state: started
-    #     enabled: true
-    #     name: wazuh-agent
+    - name: start wazuh agent
+      ansible.builtin.systemd:
+        daemon-reload: true
+        state: started
+        enabled: true
+        name: wazuh-agent
       
-    # - name: disable Wazuh repo
-    #   ansible.builtin.shell:
-    #     cmd: sudo echo "wazuh-agent hold" | dpkg --set-selections
+    - name: disable Wazuh repo
+      ansible.builtin.shell:
+        cmd: sudo echo "wazuh-agent hold" | dpkg --set-selections
       
