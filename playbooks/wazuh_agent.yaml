@@ -14,7 +14,9 @@
         state: present
   
     - name: remove wazuh for now
-      shell: apt remove wazuh-agent
+      apt:
+        name: wazuh-agent
+        state: absent
     
     # - name: install wazuh
     #   shell: WAZUH_MANAGER={{ lookup('env','WAZUH_MANAGER') }} apt-get install wazuh-agent
