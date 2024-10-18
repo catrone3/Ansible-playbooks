@@ -14,8 +14,7 @@
         state: present
   
     - name: install wazuh
-      shell: export WAZUH_MANAGER="{{ lookup('env','WAZUH_MANAGER') }}" && echo $WAZUH_MANAGER 
-    #apt-get install wazuh-agent
+      shell: export WAZUH_MANAGER="{{ lookup('env','WAZUH_MANAGER') }}" && apt-get install wazuh-agent
     
     # - name: start wazuh agent
     #   ansible.builtin.systemd:
