@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: all:!192.168.1.67
   become: true
 
   # Install Wazuh Agent
@@ -14,8 +14,7 @@
         state: present
   
     - name: install wazuh
-      apt:
-        name: wazuh-agent
+      shell: WAZUH_MANAGER={{ WAZUH_MANAGER }} apt-get install wazuh-agent
 
     - name: start wazuh agent
       ansible.builtin.systemd:
