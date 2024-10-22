@@ -31,11 +31,11 @@
     dest: /var/www/perlite/perlite.svg
     mode: '0655'
 
-- name: copy custom style changes to tmp
-  copy:
-    src: ../files/perlite-backup/style-edit.css
-    dest: /tmp/style-edit.css
-    mode: '0655'
+# - name: copy custom style changes to tmp
+#   copy:
+#     src: ../files/perlite-backup/style-edit.css
+#     dest: /tmp/style-edit.css
+#     mode: '0655'
 
-- name: update style to have custom styles
-  shell: sudo cat /tmp/style-edit.css >> /var/www/perlite/.styles/style.css
+# - name: update style to have custom styles
+#   shell: sudo cat /tmp/style-edit.css >> /var/www/perlite/.styles/style.css
